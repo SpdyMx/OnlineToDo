@@ -8,6 +8,10 @@ deny from all
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Forward Authorization header so Bearer auth works on shared hosting.
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
   # Redirect to HTTPS
   # RewriteEngine On
   # RewriteCond %{HTTPS} off

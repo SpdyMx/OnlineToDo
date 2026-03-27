@@ -684,8 +684,15 @@ return function (App $app) {
             }
             )->add(new \App\Application\Middleware\E2EMiddleware())->add(new AuthMiddleware($jwtSecret));
 
-    // Serve React index.html for any unmatched route
+    // Serve React index.html for any unmatched non-API route
     $app->get('/[{routes:.*}]', function (Request $request, Response $response) {
+        $path = ltrim($request->getUri()->getPath(), '/');
+
+        if ($path === 'api' || str_starts_with($path, 'api/')) {
+            $response->getBody()->write(json_encode(['error' => 'Route not found']));
+            return $response->withStatus(404)->withHeader('Content-Type', 'application/json');
+        }
+
         $file = __DIR__ . '/../public/index.html';
         if (file_exists($file)) {
             $response->getBody()->write(file_get_contents($file));

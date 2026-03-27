@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { fetchWithAuth } from '../api';
-import { ArrowLeft, Key, Mail, User, Shield } from 'lucide-react';
+import { ArrowLeft, User, Shield } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface UserProfile {
@@ -15,7 +15,6 @@ interface UserProfile {
 }
 
 export default function Profile() {
-    const navigate = useNavigate();
     const [profile, setProfile] = useState<UserProfile | null>(null);
 
     const [name, setName] = useState('');

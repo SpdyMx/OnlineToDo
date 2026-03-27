@@ -2,9 +2,16 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+const outDir = process.env.VITE_OUT_DIR ?? '../api/public'
+const minify = process.env.VITE_MINIFY === 'false' ? false : 'esbuild'
+const sourcemap = process.env.VITE_SOURCEMAP === 'true'
+
 export default defineConfig({
+  base: './',
   build: {
-    outDir: '../api/public',
+    outDir,
+    minify,
+    sourcemap,
     emptyOutDir: false,
   },
   plugins: [

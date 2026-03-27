@@ -1,4 +1,4 @@
-export const API_URL = '/api';
+export const API_URL = './api';
 
 const arrayBufferToBase64 = (buffer: ArrayBuffer | Uint8Array) => {
     let binary = '';
